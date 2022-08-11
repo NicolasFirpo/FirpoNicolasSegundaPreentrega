@@ -225,7 +225,6 @@ class Personaje{
 };
 
 
-
 loadFromLocalStorage()
 
 function loadFromLocalStorage() {
@@ -239,7 +238,7 @@ function loadFromLocalStorage() {
     }else{
         PJaceptado()
     }
-    }
+}
     
 
 const crearPJ=document.getElementById('crearPJ');
@@ -251,6 +250,10 @@ function creacionPersonaje(){
     clearUI()
     pantallaCreacion()
 };
+const options=document.getElementById('options');
+options.addEventListener('click', opciones)
+
+
 
 function clearUI() {
     const welcome=document.getElementById('welcome')
@@ -259,7 +262,8 @@ function clearUI() {
 
 function pantallaCreacion() {
     const creacionpj=document.getElementById('welcome')
-    creacionpj.innerHTML=`<div id="root">Elegir Nombre: <input type="text" id='name'/><div id=elegirclase></div></div>`
+    creacionpj.innerHTML=`<h1>Creacion de Personaje</h3>
+    <div id="root">Elegir Nombre: <input type="text" id='name'/><div id=elegirclase></div></div>`
 
     const nameInput=document.getElementById("name");
     nameInput.addEventListener('change', createClassPJ);
@@ -360,8 +364,50 @@ function volver() {
         </div>`;
     const crearPJ=document.getElementById('crearPJ');
     crearPJ.addEventListener('click', creacionPersonaje);
+    const credits=document.getElementById('credits');
+    credits.addEventListener('click', creditos)
+    const options=document.getElementById('options');
+    options.addEventListener('click', opciones)
 }
+function opciones() {
+    console.log('options');
+    clearUI
+    const opciones=document.getElementById('welcome')
+    opciones.innerHTML=`
+        <h1>Opciones</h1>
+        <div id="opciones">
+            <li><button id="volume">Volumen</button></li>
+            <li><button id="deletePJ">Borrar Personaje</button></li>
+            <li><button id="volver">Volver</button></li>
+        </div>`;
+    const vuelta = document.getElementById("volver");
+    const PJ=localStorage.getItem('Jugadores');
+    if(PJ == null){
+        vuelta.addEventListener('click', volver)
+    }else{
+        vuelta.addEventListener('click', PJaceptado);
+    }
+    
 
+}
+function creditos() {
+    clearUI();
+    const cred = document.getElementById('welcome');
+    cred.innerHTML=`
+        <h1>CREDITOS</h1>
+        <div id="credits">
+            <li></li>
+            <li></li>
+            <li><button id="volver">Volver</button></li>
+        </div>`;
+        const vuelta = document.getElementById("volver");
+        const PJ=localStorage.getItem('Jugadores');
+        if(PJ == null){
+            vuelta.addEventListener('click', volver)
+        }else{
+            vuelta.addEventListener('click', PJaceptado);
+        }
+}
 
 
 function PJaceptado() {
@@ -375,8 +421,11 @@ function PJaceptado() {
                 <li><button id="credits">Creditos</button></li>
             </div>`;
     
+    const options=document.getElementById('options');
+    options.addEventListener('click', opciones)
+    const credits=document.getElementById('credits');
+    credits.addEventListener('click', creditos)
 }
-
 
 function saveToLocalStorage() {
     const PJ=JSON.stringify(Jugadores);
